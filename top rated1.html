@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warner Bros</title>
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="C:\Users\Lebo\Desktop\web\style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <!-- Use a relative path or a web URL for images -->
+            <img src="C:\Users\Lebo\Downloads\th__3_-removebg-preview.png" alt="Netflix Logo">
+            <nav>
+                <ul>
+                    <!-- Use relative paths for internal links -->
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Tv show.html">TV Shows</a></li>
+                    <li><a href="movies.html">Movies</a></li>
+                    <li><a href="Games.html">Games</a></li>
+                    <li><a href="booking.html">Booking</a></li>
+                    <li><a href="about us.html">About us</a></li>
+                    <li><a href="Login.html">Collection</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div>
+            <!-- Remove onclick="history.back()", as it doesn't make sense in this context -->
+            <a href="movies.html">Go back</a>
+        </div>
+    </header>
+
+    <h1>Top Rated Movies</h1>
+    <main>
+        <!-- Placeholder div for movie details -->
+        <div id="movieDetails">
+
+            <img src="C:\Users\Lebo\Downloads\OIP (2).jpeg" height="190" width="135" alt="Special offer">
+            <div></div>
+            <p1>Godzilla</p1>
+        <div>
+            <a href="C:\Users\Lebo\Desktop\web\movie details.html"> 
+                <button>info</button>
+                </a>
+        </div>
+        </div>
+
+        <script>
+            // TMDb API key
+            const apiKey = '5c33f0255ca3dc0668b75efa9c145d96';
+            // Movie ID for "Godzilla vs. Kong"
+            const movieId = 399566; // This is the TMDb ID for "Godzilla vs. Kong"
+
+            // Function to redirect to movie detail page with movie ID as parameter
+            function redirectToMovieDetail(movieId) {
+                window.location.href = `movie_detail.html?id=${movieId}`;
+            }
+
+            // Fetch movie details from TMDb API
+            fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Display movie details
+                    const movieDetailsDiv = document.getElementById('movieDetails');
+                    movieDetailsDiv.innerHTML = `
+                        <h2>${data.title}</h2>
+                        <p>${data.overview}</p>
+                        <img src="https://image.tmdb.org/t/p/w500${data.poster_path}" alt="${data.title} Poster">
+                        <p>Rating: ${data.vote_average}</p>
+                        <!-- Create an "Info" button -->
+                        <button onclick="redirectToMovieDetail(${data.id})">Info</button>
+                    `;
+                })
+                .catch(error => console.error('Error fetching movie details:', error));
+        </script>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Warner Bros</p>
+        </div>
+    </footer>
+</body>
+</html>
